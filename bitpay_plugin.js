@@ -1,8 +1,9 @@
 var express = require('express');
-var INVOICE_BITCOINS_AMOUNT = 0.0003;
+var INVOICE_BITCOINS_AMOUNT = 0.0002;
 var BITPAY_API_KEY = process.env.BITPAY_API_KEY;
+var BitpayInvoiceGenerator = require(__dirname+'/lib/bitpay_invoice_generator');
 var invoiceGenerator = new BitpayInvoiceGenerator({
-  bitpayApiKey: BITPAY_API_KEY
+  apiKey: BITPAY_API_KEY
 });
 
 function BitpayPlugin(options) {
@@ -14,10 +15,11 @@ function BitpayPlugin(options) {
   });
   router.post('/invoices', function(request, response) {
     // create an invoice with bitpay
-    invoiceGenerator.getNewInvoice({ amount: INVOICE_BITCOINS_AMOUNT })
-      .complete(function(error, invoiceUrl)) {
-        response.redirect(301, invoiceUrl);
-      })
+    invoiceGenerator.getNewInvoice({
+      amount: INVOICE_BITCOINS_AMOUNT
+    },
+    function(error, invoice) {
+      response.redirect(invoice.url);
     });
   });
   return router;

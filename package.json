@@ -25,6 +25,7 @@
   "dependencies": {
     "body-parser": "^1.4.3",
     "express": "^4.6.1",
-    "superagent": "^0.18.2"
+    "superagent": "^0.18.2",
+    "supertest": "^0.13.0"
   }
 }
