@@ -1,0 +1,30 @@
+{
+  "name": "bitpay-gatewayd-plugin",
+  "version": "1.0.0",
+  "description": "Inbound bridge for Bitcoins to Gatewayd on Ripple",
+  "main": "router.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevenzeiler/gatewayd-bitpay-plugin"
+  },
+  "keywords": [
+    "bitcoin",
+    "ripple",
+    "bitpay",
+    "gatewayd"
+  ],
+  "author": "Steven Zeiler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stevenzeiler/bitpay-gatewayd-plugin/issues"
+  },
+  "homepage": "https://github.com/stevenzeiler/bitpay-gatewayd-plugin",
+  "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.6.1",
+    "superagent": "^0.18.2"
+  }
+}
