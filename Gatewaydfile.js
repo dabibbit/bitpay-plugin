@@ -1,4 +1,4 @@
-var BitpayGatewaydPlugin = require('bitpay-gatewayd-plugin/');
+var BitpayGatewaydPlugin = require('bitpay-gatewayd-plugin');
 
 module.exports = function(gatewayd) {
   var bitpayPlugin = new BitpayGatewaydPlugin({

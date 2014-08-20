@@ -6,7 +6,7 @@ Plugin that hooks into the express.js application server in gatewayd, and record
 
 In the `Gatewaydfile.js` of your gatewayd installation:
 
-    var BitpayGatewaydPlugin = require('bitpay-gatewayd-plugin/');
+    var BitpayGatewaydPlugin = require('bitpay-gatewayd-plugin');
 
     module.exports = function(gatewayd) {
       var bitpayPlugin = new BitpayGatewaydPlugin({
