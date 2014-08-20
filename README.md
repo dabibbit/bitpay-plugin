@@ -4,18 +4,18 @@ Plugin that hooks into the express.js application server in gatewayd, and record
 
 ## Usage
 
-    var BitpayGatewaydPlugin = require('bitpay-gatewayd-plugin');
-    var gatewayd = require('./gatewayd/');
-    var bitpayApiKey = process.env.BITPAY_API_KEY;
+In the `Gatewaydfile.js` of your gatewayd installation:
 
-    var bitpayPlugin = new BitpayGatewaydPlugin({
-      gatewayd: gatewayd,
-      bitpayApiKey: bitpayApiKey
-    });
+    var BitpayGatewaydPlugin = require('bitpay-gatewayd-plugin/');
 
-    gatewayd.server.use('/bitpay', bitpayPlugin);
-    
-    gatewayd.server.start();
+    module.exports = function(gatewayd) {
+      var bitpayPlugin = new BitpayGatewaydPlugin({
+        gatewayd: gatewayd,
+        bitpayApiKey: gatewayd.config.get('BITPAY_API_KEY')
+      }); 
+
+      gatewayd.server.use('/bitpay', bitpayPlugin);
+    }
 
 The `bitpayPlugin` object is simply an instance of the express.js Router class.
 
