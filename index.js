@@ -20,7 +20,11 @@ function BitpayPlugin(options) {
       amount: INVOICE_BITCOINS_AMOUNT
     },
     function(error, invoice) {
-      response.redirect(invoice.url);
+      response
+        .status(201)
+        .send({
+          invoice: invoice.url
+        });
     });
   });
   return router;
