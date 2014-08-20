@@ -24,7 +24,7 @@ function BitpayPlugin(options) {
       response
         .status(201)
         .send({
-          invoice: invoice.url
+          invoice: invoice
         });
     });
   });
