@@ -1,6 +1,7 @@
 var express = require('express');
 var INVOICE_BITCOINS_AMOUNT = 0.0002;
 var BitpayInvoiceGenerator = require(__dirname+'/lib/bitpay_invoice_generator');
+var BitpayCAllbackHandler = require(__dirname+'/lib/bitpay_callback_handler');
 
 function BitpayPlugin(options) {
   this.gatewayd = options.gatewayd;
@@ -12,7 +13,7 @@ function BitpayPlugin(options) {
   router.post('/callbacks', function(request, response) {
     // handle post callback from bitpay
     var bitpayCallbackHandler = new BitpayCallbackHandler();
-    bitpayCallbackHandler.handleCallback(request);
+    bitpayCallbackHandler.accept(request);
   });
   router.post('/invoices', function(request, response) {
     // create an invoice with bitpay
