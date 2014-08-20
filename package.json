@@ -1,6 +1,6 @@
 {
   "name": "bitpay-gatewayd-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Inbound bridge for Bitcoins to Gatewayd on Ripple",
   "main": "router.js",
   "scripts": {

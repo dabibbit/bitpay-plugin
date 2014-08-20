@@ -1,12 +1,13 @@
 var express = require('express');
 var INVOICE_BITCOINS_AMOUNT = 0.0002;
-var BITPAY_API_KEY = process.env.BITPAY_API_KEY;
 var BitpayInvoiceGenerator = require(__dirname+'/lib/bitpay_invoice_generator');
-var invoiceGenerator = new BitpayInvoiceGenerator({
-  apiKey: BITPAY_API_KEY
-});
 
 function BitpayPlugin(options) {
+  this.gatewayd = options.gatewayd;
+  this.bitpayApiKey = options.bitpayApiKey;
+  var invoiceGenerator = new BitpayInvoiceGenerator({
+    apiKey: options.bitpayApiKey
+  });
   var router = new express.Router();
   router.post('/callbacks', function(request, response) {
     // handle post callback from bitpay
