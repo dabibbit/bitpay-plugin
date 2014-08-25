@@ -19,3 +19,31 @@ In the `Gatewaydfile.js` of your gatewayd installation:
 
 The `bitpayPlugin` object is simply an instance of the express.js Router class.
 
+
+    gatewayd.bitpayInvoices.create({
+      amount: 0.002,
+      destination: 'stevenzeiler',
+      policy: 'deposit'  
+    })
+    .then(console.log)
+    .error(console.log);
+
+    gatewayd.bitpayInvoices.find({
+      id: 9653
+    })
+    .then(console.log)
+    .error(console.log)
+    
+    gatewayd.bitpayInvoices.pay({
+      payment: { bitpayCallbackData },
+      id: 9653
+    })
+    .then(console.log)
+    .error(console.log);
+
+    gatewayd.bitpayInvoices.delete({
+      id: 9653
+    })
+    .then(console.log)
+    .error(console.log);
+
