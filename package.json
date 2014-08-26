@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/stevenzeiler/bitpay-gatewayd-plugin",
   "dependencies": {
-    "body-parser": "^1.4.3",
-    "express": "^4.6.1",
+    "body-parser": "^1.6.5",
+    "express": "^4.8.5",
     "superagent": "^0.18.2",
     "supertest": "^0.13.0",
     "bluebird": "^2.3.2"
