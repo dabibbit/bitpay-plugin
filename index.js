@@ -47,10 +47,10 @@ function BitpayPlugin(options) {
       });
     }
   });
-  app.get('/bridge_payments/:destination/:amount', function(request, response) {
+  app.get('/bridge_payments/ripple::destination/:amount', function(request, response, next) {
     // look up Ripple path from hot wallet to destination
     invoiceGenerator.getNewInvoice({
-      amount: INVOICE_BITCOINS_AMOUNT,
+      amount: request.params.amount.split('+')[0],
       data: {
         rippleAddress: request.params.destination
       }
@@ -61,13 +61,7 @@ function BitpayPlugin(options) {
           invoice: invoice
         });
     })
-    .error(function(error) {
-      response
-        .status(500)
-        .send({
-          error: error
-        });
-    });
+    .error(next);
   });
   app.post('/bitpay/callbacks', function(request, response) {
     // handle post callback from bitpay
