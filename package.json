@@ -27,6 +27,7 @@
     "express": "^4.8.5",
     "superagent": "^0.18.2",
     "supertest": "^0.13.0",
-    "bluebird": "^2.3.2"
+    "bluebird": "^2.3.2",
+    "bitpay-node": "0.0.4"
   }
 }
