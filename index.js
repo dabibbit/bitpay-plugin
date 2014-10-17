@@ -3,6 +3,8 @@ var INVOICE_BITCOINS_AMOUNT = 0.0002;
 var BitpayInvoiceGenerator = require(__dirname+'/lib/bitpay_invoice_generator');
 var BitpayCAllbackHandler = require(__dirname+'/lib/bitpay_callback_handler');
 var http = require('superagent');
+var bodyParser = require('body-parser');
+var cors = require('cors');
 
 function lookupRippleName(name, callback) {
   http.get('https://id.ripple.com/v1/authinfo?username='+name)
@@ -21,6 +23,9 @@ function BitpayPlugin(options) {
     gatewayd: options.gatewayd
   });
   var app = express();
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+
   app.get('/', function(request, response) {
     response.status(200).send({
       name: 'inbound-bitpay',
@@ -35,14 +40,11 @@ function BitpayPlugin(options) {
       next();
     } else {
       lookupRippleName(destination, function(error, address) {
-        if (error) {
-          return next(error);
-        }
         if (address) {
           request.params['destination'] = address; 
           next();
         } else {
-          next('invalid ripple name or account');
+          return next(error);
         }
       });
     }
@@ -65,9 +67,12 @@ function BitpayPlugin(options) {
   });
   app.post('/bitpay/callbacks', function(request, response) {
     // handle post callback from bitpay
-    var bitpayCallbackHandler = new BitpayCallbackHandler();
-    bitpayCallbackHandler.accept(request);
+    console.log(request.body);
+    response.status(200).send();
+    //var bitpayCallbackHandler = new BitpayCallbackHandler();
+    //bitpayCallbackHandler.accept(request);
   });
+  app.use(cors());
   return app;
 }
 
