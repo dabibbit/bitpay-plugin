@@ -3,14 +3,19 @@ var bodyParser = require('body-parser');
 var BitpayPlugin = require(__dirname+'/');
 var gatewayd = require(process.env.GATEWAYD_PATH);
 
+
+console.log('bitpay key', gatewayd.config.get('BITPAY_API_KEY'));
+
 var app = new BitpayPlugin({
   gatewayd: gatewayd,
-  bitpayApiKey: gatewayd.config.get('BITPAY_API_KEY'),
+  apiKey: gatewayd.config.get('BITPAY_API_KEY'),
   notificationURL: 'https://inbound.coin-gate.com/bitpay/callbacks'
 });
 
-app.listen(process.env.PORT, function(error) {
-  console.log('listening on port', process.env.PORT);
+const port = process.env.PORT || 5000;
+
+app.listen(port, function(error) {
+  console.log('listening on port', port);
   if (error) { throw new Error(error) }
 });
 

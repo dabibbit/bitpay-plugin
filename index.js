@@ -1,7 +1,7 @@
 var express = require('express');
 var INVOICE_BITCOINS_AMOUNT = 0.0002;
 var BitpayInvoiceGenerator = require(__dirname+'/lib/bitpay_invoice_generator');
-var BitpayCAllbackHandler = require(__dirname+'/lib/bitpay_callback_handler');
+var BitpayCallbackHandler = require(__dirname+'/lib/bitpay_callback_handler');
 var http = require('superagent');
 var bodyParser = require('body-parser');
 var cors = require('cors');
@@ -18,7 +18,7 @@ function BitpayPlugin(options) {
   this.gatewayd = options.gatewayd;
   this.bitpayApiKey = options.bitpayApiKey;
   var invoiceGenerator = new BitpayInvoiceGenerator({
-    apiKey: options.bitpayApiKey,
+    apiKey: options.apiKey,
     notificationURL: options.notificationURL,
     gatewayd: options.gatewayd
   });
@@ -66,12 +66,16 @@ function BitpayPlugin(options) {
     .error(next);
   });
   app.post('/bitpay/callbacks', function(request, response) {
-    // handle post callback from bitpay
-    console.log(request.body);
-    response.status(200).send();
-    //var bitpayCallbackHandler = new BitpayCallbackHandler();
-    //bitpayCallbackHandler.accept(request);
+    var bitpayCallbackHandler = new BitpayCallbackHandler();
+    bitpayCallbackHandler.accept(request)
+    .then(function(payment) {
+      response.status(200).send({ payment: payment });
+    })
+    .error(function(error) {
+      response.status(500).send({ error: error});
+    });
   });
+
   app.use(cors());
   return app;
 }
