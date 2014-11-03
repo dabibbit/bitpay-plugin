@@ -1,6 +1,8 @@
 var gatewayd = require(process.env.GATEWAYD_PATH);
 var ExternalAccount = gatewayd.models.externalAccounts;
 var GatewayTransaction = gatewayd.models.gatewayTransactions;
+var RippleAddress = gatewayd.models.rippleAddresses;
+var RippleTransaction = gatewayd.models.rippleTransactions;
 
 module.exports = function(payment, callback) {
 
@@ -15,28 +17,45 @@ module.exports = function(payment, callback) {
     
     var address = JSON.parse(payment.data.posData).rippleAddress;
 
-    gatewayd.api.enqueueOutgoingPayment({
-      address: address,
-      amount: payment.amount,
-      currency: payment.currency
-    }, function(error, ripplePayment) {
-      gatewayd.logger.info('outgoing ripple payment enqueued', ripplePayment.toJSON());
-      GatewayTransaction.create({
-        ripple_transaction_id: ripplePayment.id,
-        external_transaction_id: payment.id,
-        state: 'completed',
-        policy_id: 0
-      })
-      .then(function() {
-        return payment.updateAttributes({
-          status: 'completed'
+    RippleAddress.findOrCreate({
+      type: 'independent',
+      managed: false,
+      address: 'r4EwBWxrx5HxYRyisfGzMto3AT8FZiYdWk'
+    }) 
+    .then(function(address) {
+      return gatewayd.api.getHotWallet(function(error, hotWallet) {
+        return RippleTransaction.create({
+          to_address_id: address.id,
+          from_address_id: hotWallet.id,
+          to_amount: payment.amount,
+          to_currency: payment.currency,
+          to_issuer: address.address,
+          from_amount: payment.amount,
+          from_currency: payment.currency,
+          from_issuer: address.address,
+          state: 'outgoing' 
+        })
+        .then(function(ripplePayment) {
+          gatewayd.logger.info('outgoing ripple payment enqueued', ripplePayment.toJSON());
+          GatewayTransaction.create({
+            ripple_transaction_id: ripplePayment.id,
+            external_transaction_id: payment.id,
+            state: 'completed',
+            policy_id: 0
+          })
+          .then(function() {
+            return payment.updateAttributes({
+              status: 'completed'
+            });
+          })
+          .then(function() {
+            callback();
+          })
+          .error(callback);
         });
-      })
-      .then(function() {
-        callback();
-      })
-      .error(callback);
+      });
     });
+
   });
 
 }
