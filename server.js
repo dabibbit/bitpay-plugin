@@ -3,9 +3,6 @@ var bodyParser = require('body-parser');
 var BitpayPlugin = require(__dirname+'/');
 var gatewayd = require(process.env.GATEWAYD_PATH);
 
-
-console.log('bitpay key', gatewayd.config.get('BITPAY_API_KEY'));
-
 var app = new BitpayPlugin({
   gatewayd: gatewayd,
   apiKey: gatewayd.config.get('BITPAY_API_KEY'),

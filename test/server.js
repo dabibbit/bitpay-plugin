@@ -1,11 +1,13 @@
 var assert = require('assert');
 var express = require('express');
 var httpClient = require('supertest');
-var BitpayPlugin = require(__dirname+'/../bitpay_plugin.js');
+var BitpayPlugin = require(__dirname+'/../');
 var app = express();
 
+var gatewayd = require(process.env.GATEWAYD_PATH);
+
 var bitpayGatewaydPlugin = new BitpayPlugin({
-  apiKey: process.env.BITPAY_API_KEY
+  apiKey: gatewayd.config.get('BITPAY_API_KEY')
 });
 
 app.use('/bitpay', bitpayGatewaydPlugin);

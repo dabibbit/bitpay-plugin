@@ -1,7 +1,9 @@
 var Promise = require('bluebird');
 var RipplePaymentQuote = require(__dirname+'/ripple_payment_quote');
 var RippleRestClient = require('ripple-rest-client');
+var RipplePathFind = require(__dirname+'/../lib/ripple_path_find');
 var _ = require('lodash');
+
 
 var rippleRestClient = Promise.promisifyAll(new RippleRestClient({
   api: 'https://api.ripple.com/',

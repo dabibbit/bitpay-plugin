@@ -5,7 +5,7 @@ var RipplePayment = require(__dirname+'/../../models/ripple_payment');
 var RipplePaymentQuote = require(__dirname+'/../../models/ripple_payment_quote');
 
 describe('BridgePayment Model', function() {
-  var brigePayment;
+  var bridgePayment;
 
   before(function() {    
     bridgePayment = new BridgePayment({
@@ -45,7 +45,6 @@ describe('BridgePayment Model', function() {
 
   describe('Getting a quote from the ripple network', function(done) {
 
-    
     it('should get a quote from BTC to XRP', function(done) {
 
       bridgePayment.ripplePayment.getQuote().then(function(ripplePaymentQuote) {
