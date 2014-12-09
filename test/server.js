@@ -14,7 +14,7 @@ app.use('/bitpay', bitpayGatewaydPlugin);
 
 describe('generating a bitpay invoice with the http/json api', function() {
 
-  it('should redirect the url of an invoice', function(done) {
+  it.skip('should redirect the url of an invoice', function(done) {
     httpClient(app)
       .post('/bitpay/invoices')
       .send({ amount: 0.0002 })
