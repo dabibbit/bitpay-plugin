@@ -1,6 +1,8 @@
 var assert = require('assert');
 var BridgePayment = require(__dirname+'/../../models/bridge_payment');
 var BitpayPayment = require(__dirname+'/../../models/bitpay_payment');
+var RipplePayment = require(__dirname+'/../../models/ripple_payment');
+var RipplePaymentQuote = require(__dirname+'/../../models/ripple_payment_quote');
 
 describe('BridgePayment Model', function() {
   var brigePayment;
@@ -21,14 +23,13 @@ describe('BridgePayment Model', function() {
       ripple: {
         source: {
           currency: 'BTC',
-          issuer: 'rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q'
         },
         destination: {
           address: 'r4EwBWxrx5HxYRyisfGzMto3AT8FZiYdWk',
           tag: 234,
           invoice_id: '123234234234343',
           currency: 'XRP',
-          amount: 10000
+          amount: 1
         }
       }
     });
@@ -45,14 +46,16 @@ describe('BridgePayment Model', function() {
   describe('Getting a quote from the ripple network', function(done) {
 
     
-    it.skip('should get a quote from BTC to XRP', function(done) {
+    it('should get a quote from BTC to XRP', function(done) {
 
       bridgePayment.ripplePayment.getQuote().then(function(ripplePaymentQuote) {
-        assert.strictEqual(ripplePaymentQuote.destination.amount, 10000);
+        assert(ripplePaymentQuote instanceof RipplePaymentQuote);
+
+        assert.strictEqual(ripplePaymentQuote.destination.amount, 1);
         assert.strictEqual(ripplePaymentQuote.destination.currency, 'XRP');
         assert(ripplePaymentQuote.destination.amount > 0);
         assert.strictEqual(ripplePaymentQuote.source.currency, 'BTC');
-        assert.strictEqual(ripplePaymentQuote.source.issuer, 'rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q');
+        assert(ripplePaymentQuote.source.amount > 0);
         done();
       });
     });
