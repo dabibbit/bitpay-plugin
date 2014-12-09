@@ -2,9 +2,11 @@ var express = require('express');
 var INVOICE_BITCOINS_AMOUNT = 0.0002;
 var BitpayInvoiceGenerator = require(__dirname+'/lib/bitpay_invoice_generator');
 var BitpayCallbackHandler = require(__dirname+'/lib/bitpay_callback_handler');
+var bridgeQuotesController = require(__dirname+'/controllers/bridge_quotes_controller');
 var http = require('superagent');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var _ = require('lodash');
 
 function lookupRippleName(name, callback) {
   http.get('https://id.ripple.com/v1/authinfo?username='+name)
@@ -65,6 +67,9 @@ function BitpayPlugin(options) {
     })
     .error(next);
   });
+
+  app.post('/bridge_quotes', bridgeQuotesController.build.bind(bridgeQuotesController));
+
   app.post('/bitpay/callbacks', function(request, response) {
     var bitpayCallbackHandler = new BitpayCallbackHandler();
     bitpayCallbackHandler.accept(request)

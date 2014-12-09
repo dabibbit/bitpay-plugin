@@ -35,7 +35,8 @@ RipplePayment.prototype.getQuote = function getQuote() {
         return currencyMatches;
       })[0];
       if (quote) {
-        resolve(new RipplePaymentQuote(quote));
+        var paymentQuote = new RipplePaymentQuote(quote);
+        resolve(paymentQuote);
       } else {
         reject('no quote found');
       }
