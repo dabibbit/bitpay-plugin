@@ -1,5 +1,6 @@
 var ExternalPayment = require(__dirname+'/external_payment');
 var Promise = require('bluebird');
+var gatewayd = require(process.env.GATEWAYD_PATH);
 
 function BitpayPayment(options) {
   var _this = this;
@@ -13,7 +14,6 @@ BitpayPayment.prototype.constructor = BitpayPayment;
 
 BitpayPayment.prototype.getQuote = function getQuote(options) {
   var _this = this; 
-  console.log('GET BITPAY QUOTE', options);
   return new Promise(function(resolve, reject) {
     _this.destination.amount = options.amount;
     _this.destination.currency = 'BTC';
@@ -24,6 +24,12 @@ BitpayPayment.prototype.getQuote = function getQuote(options) {
       destination: _this.destination,
       source: _this.source  
     });
+  });
+}
+
+BitpayPayment.prototype.commit = function(commit) {
+  return new Promise(function(resolve, reject) {
+    resolve({ id: 1234 }); 
   });
 }
 

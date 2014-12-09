@@ -4,7 +4,7 @@
   "description": "Inbound bridge for Bitcoins to Gatewayd on Ripple",
   "main": "router.js",
   "scripts": {
-    "test": "mocha -R spec test/"
+    "test": "mocha -R spec test/http test/models"
   },
   "repository": {
     "type": "git",

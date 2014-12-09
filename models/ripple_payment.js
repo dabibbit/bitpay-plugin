@@ -3,7 +3,7 @@ var RipplePaymentQuote = require(__dirname+'/ripple_payment_quote');
 var RippleRestClient = require('ripple-rest-client');
 var RipplePathFind = require(__dirname+'/../lib/ripple_path_find');
 var _ = require('lodash');
-
+var gatewayd = require(process.env.GATEWAYD_PATH);
 
 var rippleRestClient = Promise.promisifyAll(new RippleRestClient({
   api: 'https://api.ripple.com/',
@@ -42,6 +42,16 @@ RipplePayment.prototype.getQuote = function getQuote() {
       }
     })
     .error(reject);
+  });
+}
+
+RipplePayment.prototype.commit = function commit() {
+  return new Promise(function(resolve, reject) {
+    resolve({ id: 123 });
+    /*gatewayd.models.rippleTransactions.create({
+
+    });
+    */
   });
 }
 

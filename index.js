@@ -3,6 +3,7 @@ var INVOICE_BITCOINS_AMOUNT = 0.0002;
 var BitpayInvoiceGenerator = require(__dirname+'/lib/bitpay_invoice_generator');
 var BitpayCallbackHandler = require(__dirname+'/lib/bitpay_callback_handler');
 var bridgeQuotesController = require(__dirname+'/controllers/bridge_quotes_controller');
+var bridgePaymentsController = require(__dirname+'/controllers/bridge_payments_controller');
 var http = require('superagent');
 var bodyParser = require('body-parser');
 var cors = require('cors');
@@ -69,6 +70,7 @@ function BitpayPlugin(options) {
   });
 
   app.post('/bridge_quotes', bridgeQuotesController.build.bind(bridgeQuotesController));
+  app.post('/bridge_payments', bridgePaymentsController.create.bind(bridgePaymentsController));
 
   app.post('/bitpay/callbacks', function(request, response) {
     var bitpayCallbackHandler = new BitpayCallbackHandler();
