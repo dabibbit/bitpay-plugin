@@ -22,3 +22,29 @@ module.exports.validBitpayPaymentQuote = {
   }
 }
 
+module.exports.IncomingPaymentRecord = { 
+  data: { 
+    id: 'D4s4C82upMf4j4EePDAtir',
+    url: 'https://bitpay.com/invoice?id=D4s4C82upMf4j4EePDAtir',
+    posData: '{"rippleAddress":"r4EwBWxrx5HxYRyisfGzMto3AT8FZiYdWk"}',
+    status: 'confirmed',
+    btcPrice: '0.0010',
+    price: 0.001,
+    currency: 'BTC',
+    invoiceTime: 1418604411392,
+    expirationTime: 1418605311392,
+    currentTime: 1418604621023,
+    btcPaid: '0.0010',
+    rate: 1,
+    exceptionStatus: false,
+    buyerFields: {} 
+  },
+  amount: '0.001',
+  currency: 'BTC',
+  deposit: true,
+  external_account_id: 1,
+  status: 'incoming',
+  ripple_transaction_id: null,
+  uid: 'D4s4C82upMf4j4EePDAtir' 
+}
+
