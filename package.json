@@ -2,9 +2,10 @@
   "name": "bitpay-gatewayd-plugin",
   "version": "1.1.0",
   "description": "Inbound bridge for Bitcoins to Gatewayd on Ripple",
-  "main": "router.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "mocha -R spec test/http test/models"
+    "test": "npm run build && mocha -R spec build/test",
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,11 @@
     "sql-mq-worker": "^1.0.3",
     "require-all": "0.0.8",
     "lodash": "^2.4.1",
-    "ripple-rest-client": "^1.11.0"
+    "ripple-rest-client": "^1.11.0",
+    "backbone": "^1.1.2",
+    "jquery": "^2.1.1",
+    "bitpay-invoice-generator": "^0.1.2",
+    "gulp": "^3.8.10",
+    "gulp-6to5": "^1.0.2"
   }
 }

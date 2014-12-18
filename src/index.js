@@ -1,6 +1,6 @@
 var express = require('express');
 var INVOICE_BITCOINS_AMOUNT = 0.0002;
-var BitpayInvoiceGenerator = require(__dirname+'/lib/bitpay_invoice_generator');
+var BitpayInvoiceGenerator = require('bitpay-invoice-generator')
 var BitpayCallbackHandler = require(__dirname+'/lib/bitpay_callback_handler');
 var bridgeQuotesController = require(__dirname+'/controllers/bridge_quotes_controller');
 var bridgePaymentsController = require(__dirname+'/controllers/bridge_payments_controller');

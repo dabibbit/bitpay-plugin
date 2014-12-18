@@ -2,6 +2,18 @@
 
 Plugin that hooks into the express.js application server in gatewayd, and records incoming bitcoin invoices and payments as deposits using the gatewayd javascript api.
 
+## Install
+
+    npm install bitpay-gatewayd-plugin
+
+## Build
+
+    npm run build
+
+## Test
+
+    npm run test
+
 ## Usage
 
 In the `Gatewaydfile.js` of your gatewayd installation:
