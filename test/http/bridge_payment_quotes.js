@@ -7,7 +7,8 @@ var app = express();
 var gatewayd = require(process.env.GATEWAYD_PATH);
 
 var bitpayGatewaydPlugin = new BitpayPlugin({
-  apiKey: gatewayd.config.get('BITPAY_API_KEY')
+  apiKey: gatewayd.config.get('BITPAY_API_KEY'),
+  gatewayd: gatewayd
 });
 
 app.use('/bitpay', bitpayGatewaydPlugin);

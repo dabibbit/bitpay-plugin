@@ -1,0 +1,39 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'run', 'restart' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose run-script [ 'prerestart',
+4 verbose run-script   'prestop',
+4 verbose run-script   'stop',
+4 verbose run-script   'poststop',
+4 verbose run-script   'restart',
+4 verbose run-script   'prestart',
+4 verbose run-script   'start',
+4 verbose run-script   'poststart',
+4 verbose run-script   'postrestart' ]
+5 info prerestart bitpay-gatewayd-plugin@1.1.0
+6 info prestop bitpay-gatewayd-plugin@1.1.0
+7 info stop bitpay-gatewayd-plugin@1.1.0
+8 info poststop bitpay-gatewayd-plugin@1.1.0
+9 info restart bitpay-gatewayd-plugin@1.1.0
+10 info prestart bitpay-gatewayd-plugin@1.1.0
+11 info start bitpay-gatewayd-plugin@1.1.0
+12 verbose unsafe-perm in lifecycle true
+13 info bitpay-gatewayd-plugin@1.1.0 Failed to exec start script
+14 error bitpay-gatewayd-plugin@1.1.0 start: `node build/server.js`
+14 error Exit status 8
+15 error Failed at the bitpay-gatewayd-plugin@1.1.0 start script.
+15 error This is most likely a problem with the bitpay-gatewayd-plugin package,
+15 error not with npm itself.
+15 error Tell the author that this fails on your system:
+15 error     node build/server.js
+15 error You can get their info via:
+15 error     npm owner ls bitpay-gatewayd-plugin
+15 error There is likely additional logging output above.
+16 error System Darwin 13.4.0
+17 error command "node" "/usr/local/bin/npm" "run" "restart"
+18 error cwd /Users/stevenzeiler/github/gatewayd/bitpay-plugin
+19 error node -v v0.10.32
+20 error npm -v 1.4.28
+21 error code ELIFECYCLE
+22 verbose exit [ 1, true ]
